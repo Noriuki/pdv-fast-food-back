@@ -6,7 +6,7 @@ export class SeederController {
   constructor(private readonly seedService: SeedService) {}
 
   @Get()
-  fetchSeed() {
-    return this.seedService.seed();
+  async fetchSeed() {
+    return await this.seedService.seed();
   }
 }
