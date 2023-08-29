@@ -21,7 +21,9 @@
     "prettier/prettier": "error",
     "space-in-brackets": "off",
     "camelcase": "off",
+    "no-await-in-loop": "off",
     "no-use-before-define": "off",
+    "no-restricted-syntax": "off",
     "@typescript-eslint/no-use-before-define": [
       "error"
     ],

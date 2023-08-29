@@ -2,7 +2,6 @@ import { Injectable, Logger, OnApplicationBootstrap } from '@nestjs/common';
 import { AdditionalsService } from 'src/modules/additionals/additionals.service';
 import { CreateAdditionalDto } from 'src/modules/additionals/dto/create-additional.dto';
 import { CategoriesService } from 'src/modules/categories/categories.service';
-import { Category } from 'src/modules/categories/entities/category.entity';
 import { CreateProductDto } from 'src/modules/products/dto/create-product.dto';
 import { ProductsService } from 'src/modules/products/products.service';
 
@@ -18,12 +17,13 @@ export class SeedService implements OnApplicationBootstrap {
     const logger = new Logger('Seeding');
     logger.log('--- Seed Service: Check ---');
     await this.categoriesSeeder();
+
     await this.additionalsSeeder();
     await this.productsSeeder();
     logger.log('--- Seed Service: End ---');
   }
 
-  async categoriesSeeder(): Promise<Category[]> {
+  async categoriesSeeder() {
     const find = await this.categoriesService.findAll();
     if (find.length > 0) return;
     const categoriesList = [
@@ -49,9 +49,9 @@ export class SeedService implements OnApplicationBootstrap {
       },
     ];
 
-    categoriesList.map(async category => {
+    for (const category of categoriesList) {
       await this.categoriesService.create(category);
-    });
+    }
   }
 
   async additionalsSeeder() {
@@ -74,9 +74,9 @@ export class SeedService implements OnApplicationBootstrap {
       },
     ];
 
-    additionals.map(async additional => {
+    for (const additional of additionals) {
       await this.additionalsService.create(additional);
-    });
+    }
   }
 
   async productsSeeder() {
@@ -199,8 +199,8 @@ export class SeedService implements OnApplicationBootstrap {
       },
     ];
 
-    products.forEach(async product => {
+    for (const product of products) {
       await this.productsService.create(product);
-    });
+    }
   }
 }
