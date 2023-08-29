@@ -8,11 +8,12 @@ import { Order } from './entities/order.entity';
 
 @Injectable()
 export class OrdersService {
-  @InjectRepository(Order)
-  private readonly orderRepository: Repository<Order>;
-
-  @InjectRepository(OrderItem)
-  private readonly orderItemRepository: Repository<OrderItem>;
+  constructor(
+    @InjectRepository(Order)
+    private readonly orderRepository: Repository<Order>,
+    @InjectRepository(OrderItem)
+    private readonly orderItemRepository: Repository<OrderItem>,
+  ) {}
 
   async create(createOrderDto: CreateOrderDto): Promise<Order> {
     const { customer_name, payment_method, observation, items } =

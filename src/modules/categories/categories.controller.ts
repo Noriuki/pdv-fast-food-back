@@ -16,7 +16,7 @@ import { UpdateCategoryDto } from './dto/update-category.dto';
 
 @Controller('categories')
 export class CategoriesController {
-  private readonly categoriesService: CategoriesService;
+  constructor(private readonly categoriesService: CategoriesService) {}
 
   @Post()
   @UsePipes(new ValidationPipe({ transform: true }))

@@ -7,8 +7,10 @@ import { Additional } from './entities/additional.entity';
 
 @Injectable()
 export class AdditionalsService {
-  @InjectRepository(Additional)
-  private readonly additionalRepository: Repository<Additional>;
+  constructor(
+    @InjectRepository(Additional)
+    private readonly additionalRepository: Repository<Additional>,
+  ) {}
 
   async create(createAdditionalDto: CreateAdditionalDto) {
     const additional = this.additionalRepository.create(createAdditionalDto);

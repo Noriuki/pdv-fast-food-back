@@ -16,7 +16,7 @@ import { ProductsService } from './products.service';
 
 @Controller('products')
 export class ProductsController {
-  private readonly productsService: ProductsService;
+  constructor(private readonly productsService: ProductsService) {}
 
   @Post()
   async create(@Body() createProductDto: CreateProductDto): Promise<Product> {

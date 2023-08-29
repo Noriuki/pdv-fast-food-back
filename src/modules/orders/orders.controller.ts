@@ -16,7 +16,7 @@ import { OrdersService } from './orders.service';
 
 @Controller('orders')
 export class OrdersController {
-  private readonly ordersService: OrdersService;
+  constructor(private readonly ordersService: OrdersService) {}
 
   @Post()
   @UsePipes(new ValidationPipe({ transform: true }))

@@ -15,11 +15,12 @@ import { Product } from './entities/product.entity';
 
 @Injectable()
 export class ProductsService {
-  @InjectRepository(Product)
-  private readonly productRepository: Repository<Product>;
-
-  @InjectRepository(ProductAdditional)
-  private readonly productAdditionalRepository: Repository<ProductAdditional>;
+  constructor(
+    @InjectRepository(Product)
+    private readonly productRepository: Repository<Product>,
+    @InjectRepository(ProductAdditional)
+    private readonly productAdditionalRepository: Repository<ProductAdditional>,
+  ) {}
 
   async create(createProductDto: CreateProductDto): Promise<Product> {
     const { additionals, ...createProduct } = createProductDto;

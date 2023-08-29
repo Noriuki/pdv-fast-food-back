@@ -16,7 +16,7 @@ import { UpdateAdditionalDto } from './dto/update-additional.dto';
 
 @Controller('additionals')
 export class AdditionalsController {
-  private readonly additionalsService: AdditionalsService;
+  constructor(private readonly additionalsService: AdditionalsService) {}
 
   @Post()
   @UsePipes(new ValidationPipe({ transform: true }))

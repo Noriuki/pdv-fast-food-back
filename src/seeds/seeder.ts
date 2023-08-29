@@ -8,11 +8,11 @@ import { ProductsService } from 'src/modules/products/products.service';
 
 @Injectable()
 export class SeedService implements OnApplicationBootstrap {
-  private readonly categoriesService: CategoriesService;
-
-  private readonly additionalsService: AdditionalsService;
-
-  private readonly productsService: ProductsService;
+  constructor(
+    private readonly categoriesService: CategoriesService,
+    private readonly additionalsService: AdditionalsService,
+    private readonly productsService: ProductsService,
+  ) {}
 
   async onApplicationBootstrap() {
     const logger = new Logger('Seeding');
