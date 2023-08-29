@@ -12,7 +12,7 @@ import { SeederModule } from './seeds/seeder.module';
     CategoriesModule,
     ProductsModule,
     OrdersModule,
-    SeederModule
+    SeederModule,
   ],
 })
-export class AppModule { }
+export class AppModule {}

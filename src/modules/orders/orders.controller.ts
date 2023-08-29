@@ -1,16 +1,26 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put, UsePipes, ValidationPipe } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  ParseIntPipe,
+  Post,
+  Put,
+  UsePipes,
+  ValidationPipe,
+} from '@nestjs/common';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { UpdateOrderDto } from './dto/update-order.dto';
 import { OrdersService } from './orders.service';
 
 @Controller('orders')
 export class OrdersController {
-  constructor(private readonly ordersService: OrdersService) { }
+  private readonly ordersService: OrdersService;
 
   @Post()
   @UsePipes(new ValidationPipe({ transform: true }))
   create(@Body() createOrderDto: CreateOrderDto) {
-    console.log(createOrderDto);
     return this.ordersService.create(createOrderDto);
   }
 
@@ -26,7 +36,10 @@ export class OrdersController {
 
   @Put(':id')
   @UsePipes(new ValidationPipe({ transform: true }))
-  update(@Param('id', ParseIntPipe) id: number, @Body() updateOrderDto: UpdateOrderDto) {
+  update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() updateOrderDto: UpdateOrderDto,
+  ) {
     return this.ordersService.update(id, updateOrderDto);
   }
 
@@ -34,5 +47,4 @@ export class OrdersController {
   remove(@Param('id', ParseIntPipe) id: number) {
     return this.ordersService.remove(id);
   }
-
 }

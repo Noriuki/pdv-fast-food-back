@@ -1,4 +1,12 @@
-import { Column, Entity, Generated, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  Generated,
+  JoinColumn,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { Category } from '../../categories/entities/category.entity';
 import { ProductAdditional } from './product-additional.entity';
 
@@ -8,7 +16,7 @@ export class Product {
   id: number;
 
   @Column()
-  @Generated("uuid")
+  @Generated('uuid')
   code: string;
 
   @Column()
@@ -27,7 +35,9 @@ export class Product {
   @JoinColumn({ name: 'category_id' })
   category: Category;
 
-  @OneToMany(() => ProductAdditional, productAdditional => productAdditional.product)
+  @OneToMany(
+    () => ProductAdditional,
+    productAdditional => productAdditional.product,
+  )
   additionals: ProductAdditional[];
 }
-

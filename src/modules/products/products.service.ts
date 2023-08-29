@@ -1,6 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Equal, FindManyOptions, FindOptionsWhere, Like, Repository } from 'typeorm';
+import {
+  Equal,
+  FindManyOptions,
+  FindOptionsWhere,
+  Like,
+  Repository,
+} from 'typeorm';
 import { CreateProductDto } from './dto/create-product.dto';
 
 import { UpdateProductDto } from './dto/update-product.dto';
@@ -9,13 +15,11 @@ import { Product } from './entities/product.entity';
 
 @Injectable()
 export class ProductsService {
-  constructor(
-    @InjectRepository(Product)
-    private readonly productRepository: Repository<Product>,
-    @InjectRepository(ProductAdditional)
-    private readonly productAdditionalRepository: Repository<ProductAdditional>,
+  @InjectRepository(Product)
+  private readonly productRepository: Repository<Product>;
 
-  ) { }
+  @InjectRepository(ProductAdditional)
+  private readonly productAdditionalRepository: Repository<ProductAdditional>;
 
   async create(createProductDto: CreateProductDto): Promise<Product> {
     const { additionals, ...createProduct } = createProductDto;
@@ -24,17 +28,19 @@ export class ProductsService {
     if (additionals && additionals.length > 0) {
       await this.productAdditionalRepository.delete({ product_id: product.id });
 
-      for (const item of additionals) {
-        await this.productAdditionalRepository.save({ additional: item, product: product });
-      }
+      additionals.map(async additional => {
+        await this.productAdditionalRepository.save({
+          additional,
+          product,
+        });
+      });
     }
 
     return product;
   }
 
   async findAll(options?: FindOptionsWhere<Product>): Promise<Product[]> {
-
-    let queryOptions: FindManyOptions<Product> = {};
+    const queryOptions: FindManyOptions<Product> = {};
 
     if (options?.name) {
       queryOptions.where = { name: Like(`%${options?.name}%`) };
@@ -48,10 +54,7 @@ export class ProductsService {
       queryOptions.where = { code: Like(`%${options?.code}%`) };
     }
 
-    queryOptions.relations = [
-      'additionals',
-      'additionals.additional',
-    ];
+    queryOptions.relations = ['additionals', 'additionals.additional'];
 
     return await this.productRepository.find(queryOptions);
   }
@@ -62,7 +65,10 @@ export class ProductsService {
     return product;
   }
 
-  async update(id: number, updateProductDto: UpdateProductDto): Promise<Product> {
+  async update(
+    id: number,
+    updateProductDto: UpdateProductDto,
+  ): Promise<Product> {
     const existingProduct = await this.productRepository.findOneBy({ id });
 
     if (!existingProduct) return null;
@@ -73,11 +79,13 @@ export class ProductsService {
     const product = await this.productRepository.save(existingProduct);
 
     if (additionals && additionals.length > 0) {
-      await this.productAdditionalRepository.delete({ product_id: existingProduct.id });
+      await this.productAdditionalRepository.delete({
+        product_id: existingProduct.id,
+      });
 
-      for (const item of additionals) {
-        await this.productAdditionalRepository.save(item);
-      }
+      additionals.map(async additional => {
+        await this.productAdditionalRepository.save(additional);
+      });
     }
 
     return product;
@@ -90,5 +98,4 @@ export class ProductsService {
 
     return await this.productRepository.remove(product);
   }
-
 }

@@ -10,15 +10,18 @@ describe('AdditionalsController', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [AdditionalsController],
-      providers: [{
-        provide: AdditionalsService, useValue: {
-          create: jest.fn(),
-          findAll: jest.fn(),
-          findOne: jest.fn(),
-          update: jest.fn(),
-          remove: jest.fn(),
-        }
-      }],
+      providers: [
+        {
+          provide: AdditionalsService,
+          useValue: {
+            create: jest.fn(),
+            findAll: jest.fn(),
+            findOne: jest.fn(),
+            update: jest.fn(),
+            remove: jest.fn(),
+          },
+        },
+      ],
     }).compile();
 
     controller = module.get<AdditionalsController>(AdditionalsController);
@@ -32,7 +35,12 @@ describe('AdditionalsController', () => {
   describe('create', () => {
     it('should create an additional', async () => {
       const createDto = { name: 'Additional', price: 5.0 };
-      const createdAdditional: Additional = { id: 1, ...createDto, description: null, image_url: null };
+      const createdAdditional: Additional = {
+        id: 1,
+        ...createDto,
+        description: null,
+        image_url: null,
+      };
 
       jest.spyOn(service, 'create').mockResolvedValue(createdAdditional);
 
@@ -44,8 +52,20 @@ describe('AdditionalsController', () => {
   describe('findAll', () => {
     it('should return an array of additionals', async () => {
       const mockAdditionals: Additional[] = [
-        { id: 1, name: 'Additional 1', price: 5.0, description: null, image_url: null },
-        { id: 2, name: 'Additional 2', price: 3.0, description: null, image_url: null },
+        {
+          id: 1,
+          name: 'Additional 1',
+          price: 5.0,
+          description: null,
+          image_url: null,
+        },
+        {
+          id: 2,
+          name: 'Additional 2',
+          price: 3.0,
+          description: null,
+          image_url: null,
+        },
       ];
 
       jest.spyOn(service, 'findAll').mockResolvedValue(mockAdditionals);
@@ -59,7 +79,13 @@ describe('AdditionalsController', () => {
   describe('findOne', () => {
     it('should return an additional by id', async () => {
       const id = 1;
-      const mockAdditional: Additional = { id, name: 'Additional 1', price: 5.0, description: null, image_url: null };
+      const mockAdditional: Additional = {
+        id,
+        name: 'Additional 1',
+        price: 5.0,
+        description: null,
+        image_url: null,
+      };
 
       jest.spyOn(service, 'findOne').mockResolvedValue(mockAdditional);
 
@@ -73,7 +99,12 @@ describe('AdditionalsController', () => {
     it('should update an additional', async () => {
       const id = 1;
       const updateDto = { name: 'Updated Additional', price: 7.0 };
-      const updatedAdditional: Additional = { id, ...updateDto, description: null, image_url: null };
+      const updatedAdditional: Additional = {
+        id,
+        ...updateDto,
+        description: null,
+        image_url: null,
+      };
 
       jest.spyOn(service, 'update').mockResolvedValue(updatedAdditional);
 
@@ -86,7 +117,13 @@ describe('AdditionalsController', () => {
   describe('remove', () => {
     it('should remove an additional', async () => {
       const id = 1;
-      const removeResponse: Additional = { id, name: 'Additional 1', price: 5.0, description: null, image_url: null };
+      const removeResponse: Additional = {
+        id,
+        name: 'Additional 1',
+        price: 5.0,
+        description: null,
+        image_url: null,
+      };
 
       jest.spyOn(service, 'remove').mockResolvedValue(removeResponse);
 

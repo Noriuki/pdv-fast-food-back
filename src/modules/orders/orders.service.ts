@@ -8,37 +8,41 @@ import { Order } from './entities/order.entity';
 
 @Injectable()
 export class OrdersService {
-  constructor(
-    @InjectRepository(Order)
-    private readonly orderRepository: Repository<Order>,
-    @InjectRepository(OrderItem)
-    private readonly orderItemRepository: Repository<OrderItem>,
-  ) { }
+  @InjectRepository(Order)
+  private readonly orderRepository: Repository<Order>;
+
+  @InjectRepository(OrderItem)
+  private readonly orderItemRepository: Repository<OrderItem>;
 
   async create(createOrderDto: CreateOrderDto): Promise<Order> {
-    const { customer_name, payment_method, observation, items } = createOrderDto;
+    const { customer_name, payment_method, observation, items } =
+      createOrderDto;
 
-    const order = await this.orderRepository.save({ customer_name, payment_method, observation });
+    const order = await this.orderRepository.save({
+      customer_name,
+      payment_method,
+      observation,
+    });
 
     let order_total = 0;
 
-    for (const item of items) {
+    items.map(async item => {
       let total_item = Number(item.base_amount * item.quantity);
 
       let additional = null;
       if (item.additionals) {
         total_item += Number(item.additionals.additional.price);
-        additional = JSON.stringify(item.additionals)
+        additional = JSON.stringify(item.additionals);
       }
 
       const savedItem = await this.orderItemRepository.save({
         order,
         ...item,
         total_amount: total_item,
-        additional
+        additionals: additional,
       });
       order_total += Number(savedItem.total_amount);
-    }
+    });
 
     order.total_amount = order_total;
     await this.orderRepository.save(order);
@@ -47,12 +51,12 @@ export class OrdersService {
   }
 
   async findAll(): Promise<Order[]> {
-    return this.orderRepository.find();
+    return this.orderRepository.find({ relations: ['items', 'items.product'] });
   }
 
   async findOne(id: number): Promise<Order> {
     const order = await this.orderRepository.findOneBy({ id });
-    if (!order) null;
+    if (!order) return null;
     return order;
   }
 

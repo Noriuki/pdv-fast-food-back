@@ -17,7 +17,7 @@ export class OrderItem {
   total_amount: number;
 
   @Column({ type: 'json', nullable: true })
-  additional: string;
+  additionals: string;
 
   @ManyToOne(() => Product)
   product: Product;

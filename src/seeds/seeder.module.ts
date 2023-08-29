@@ -6,12 +6,7 @@ import { ProductsModule } from 'src/modules/products/products.module';
 import { SeedService } from './seeder';
 
 @Module({
-  imports: [
-    AdditionalsModule,
-    CategoriesModule,
-    ProductsModule,
-    OrdersModule,
-  ],
+  imports: [AdditionalsModule, CategoriesModule, ProductsModule, OrdersModule],
   providers: [SeedService],
 })
-export class SeederModule { }
+export class SeederModule {}

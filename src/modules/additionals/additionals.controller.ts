@@ -1,11 +1,22 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put, UsePipes, ValidationPipe } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  ParseIntPipe,
+  Post,
+  Put,
+  UsePipes,
+  ValidationPipe,
+} from '@nestjs/common';
 import { AdditionalsService } from './additionals.service';
 import { CreateAdditionalDto } from './dto/create-additional.dto';
 import { UpdateAdditionalDto } from './dto/update-additional.dto';
 
 @Controller('additionals')
 export class AdditionalsController {
-  constructor(private readonly additionalsService: AdditionalsService) { }
+  private readonly additionalsService: AdditionalsService;
 
   @Post()
   @UsePipes(new ValidationPipe({ transform: true }))
@@ -25,7 +36,10 @@ export class AdditionalsController {
 
   @Put(':id')
   @UsePipes(new ValidationPipe({ transform: true }))
-  async update(@Param('id', ParseIntPipe) id: number, @Body() updateAdditionalDto: UpdateAdditionalDto) {
+  async update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() updateAdditionalDto: UpdateAdditionalDto,
+  ) {
     return await this.additionalsService.update(id, updateAdditionalDto);
   }
 

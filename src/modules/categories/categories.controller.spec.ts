@@ -10,15 +10,18 @@ describe('CategoriesController', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [CategoriesController],
-      providers: [{
-        provide: CategoriesService, useValue: {
-          create: jest.fn(),
-          findAll: jest.fn(),
-          findOne: jest.fn(),
-          update: jest.fn(),
-          remove: jest.fn(),
-        }
-      }],
+      providers: [
+        {
+          provide: CategoriesService,
+          useValue: {
+            create: jest.fn(),
+            findAll: jest.fn(),
+            findOne: jest.fn(),
+            update: jest.fn(),
+            remove: jest.fn(),
+          },
+        },
+      ],
     }).compile();
 
     controller = module.get<CategoriesController>(CategoriesController);
@@ -33,7 +36,11 @@ describe('CategoriesController', () => {
     it('should create a category', async () => {
       // Arrange
       const categoryDto = { name: 'Sobremesas' };
-      const createdCategory: Category = { id: 1, ...categoryDto, image_url: null };
+      const createdCategory: Category = {
+        id: 1,
+        ...categoryDto,
+        image_url: null,
+      };
 
       jest.spyOn(service, 'create').mockResolvedValue(createdCategory);
 
@@ -50,7 +57,7 @@ describe('CategoriesController', () => {
       // Arrange
       const categories: Category[] = [
         { id: 1, name: 'Category1', image_url: null },
-        { id: 2, name: 'Category2', image_url: null }
+        { id: 2, name: 'Category2', image_url: null },
       ];
 
       jest.spyOn(service, 'findAll').mockResolvedValue(categories);
@@ -68,7 +75,11 @@ describe('CategoriesController', () => {
     it('should return a category by id', async () => {
       // Arrange
       const categoryId = 1;
-      const category: Category = { id: categoryId, name: 'TestCategory', image_url: null };
+      const category: Category = {
+        id: categoryId,
+        name: 'TestCategory',
+        image_url: null,
+      };
 
       jest.spyOn(service, 'findOne').mockResolvedValue(category);
 
@@ -86,7 +97,11 @@ describe('CategoriesController', () => {
       // Arrange
       const categoryId = 1;
       const updatedData = { name: 'UpdatedCategory' };
-      const updatedCategory: Category = { id: categoryId, ...updatedData, image_url: null };
+      const updatedCategory: Category = {
+        id: categoryId,
+        ...updatedData,
+        image_url: null,
+      };
 
       jest.spyOn(service, 'update').mockResolvedValue(updatedCategory);
 

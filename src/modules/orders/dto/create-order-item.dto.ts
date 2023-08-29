@@ -2,7 +2,6 @@ import { IsDecimal, IsJSON, IsNumber, IsOptional } from 'class-validator';
 import { Additional } from 'src/modules/additionals/entities/additional.entity';
 
 export class OrderItemDto {
-
   @IsNumber()
   product_id: number;
 
@@ -15,9 +14,9 @@ export class OrderItemDto {
   @IsJSON()
   @IsOptional()
   additionals: {
-    id?: number,
-    product_id: number,
-    additional_id: number,
-    additional: Additional
+    id?: number;
+    product_id: number;
+    additional_id: number;
+    additional: Additional;
   };
 }

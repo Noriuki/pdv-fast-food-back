@@ -1,4 +1,12 @@
-import { IsDecimal, IsNotEmpty, IsNumber, IsOptional, IsString, IsUrl, ValidateNested } from 'class-validator';
+import {
+  IsDecimal,
+  IsNotEmpty,
+  IsNumber,
+  IsOptional,
+  IsString,
+  IsUrl,
+  ValidateNested,
+} from 'class-validator';
 import { Additional } from 'src/modules/additionals/entities/additional.entity';
 import { Category } from 'src/modules/categories/entities/category.entity';
 

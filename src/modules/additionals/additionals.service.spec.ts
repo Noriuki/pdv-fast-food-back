@@ -41,8 +41,12 @@ describe('AdditionalsService', () => {
         image_url: null,
       };
 
-      const createSpy = jest.spyOn(repo, 'create').mockReturnValue(createdAdditional);
-      const saveSpy = jest.spyOn(repo, 'save').mockResolvedValue(createdAdditional);
+      const createSpy = jest
+        .spyOn(repo, 'create')
+        .mockReturnValue(createdAdditional);
+      const saveSpy = jest
+        .spyOn(repo, 'save')
+        .mockResolvedValue(createdAdditional);
 
       const result = await service.create(createDto);
       expect(result).toBe(createdAdditional);
@@ -54,11 +58,25 @@ describe('AdditionalsService', () => {
   describe('findAll', () => {
     it('should return an array of additionals', async () => {
       const findAllResult: Additional[] = [
-        { id: 1, name: 'Additional 1', price: 5.0, description: null, image_url: null },
-        { id: 2, name: 'Additional 2', price: 3.0, description: null, image_url: null },
+        {
+          id: 1,
+          name: 'Additional 1',
+          price: 5.0,
+          description: null,
+          image_url: null,
+        },
+        {
+          id: 2,
+          name: 'Additional 2',
+          price: 3.0,
+          description: null,
+          image_url: null,
+        },
       ];
 
-      const findAllSpy = jest.spyOn(repo, 'find').mockResolvedValue(findAllResult);
+      const findAllSpy = jest
+        .spyOn(repo, 'find')
+        .mockResolvedValue(findAllResult);
 
       const result = await service.findAll();
       expect(result).toEqual(findAllResult);
@@ -77,7 +95,9 @@ describe('AdditionalsService', () => {
         image_url: null,
       };
 
-      const findOneSpy = jest.spyOn(repo, 'findOneBy').mockResolvedValue(findOneResult);
+      const findOneSpy = jest
+        .spyOn(repo, 'findOneBy')
+        .mockResolvedValue(findOneResult);
 
       const result = await service.findOne(id);
       expect(result).toEqual(findOneResult);
@@ -109,8 +129,12 @@ describe('AdditionalsService', () => {
         image_url: null,
       };
 
-      const findOneSpy = jest.spyOn(repo, 'findOneBy').mockResolvedValue(updatedAdditional);
-      const saveSpy = jest.spyOn(repo, 'save').mockResolvedValue(updatedAdditional);
+      const findOneSpy = jest
+        .spyOn(repo, 'findOneBy')
+        .mockResolvedValue(updatedAdditional);
+      const saveSpy = jest
+        .spyOn(repo, 'save')
+        .mockResolvedValue(updatedAdditional);
 
       const result = await service.update(id, updateDto);
       expect(result).toEqual(updatedAdditional);
@@ -136,10 +160,20 @@ describe('AdditionalsService', () => {
   describe('remove', () => {
     it('should remove an additional', async () => {
       const id = 1;
-      const removedAdditional: Additional = { id, name: 'Additional 1', price: 5.0, description: null, image_url: null };
+      const removedAdditional: Additional = {
+        id,
+        name: 'Additional 1',
+        price: 5.0,
+        description: null,
+        image_url: null,
+      };
 
-      const findOneSpy = jest.spyOn(repo, 'findOneBy').mockResolvedValue(removedAdditional);
-      const removeSpy = jest.spyOn(repo, 'remove').mockResolvedValue(removedAdditional);
+      const findOneSpy = jest
+        .spyOn(repo, 'findOneBy')
+        .mockResolvedValue(removedAdditional);
+      const removeSpy = jest
+        .spyOn(repo, 'remove')
+        .mockResolvedValue(removedAdditional);
 
       const result = await service.remove(id);
       expect(result).toEqual(removedAdditional);

@@ -7,10 +7,8 @@ import { Additional } from './entities/additional.entity';
 
 @Injectable()
 export class AdditionalsService {
-  constructor(
-    @InjectRepository(Additional)
-    private readonly additionalRepository: Repository<Additional>,
-  ) { }
+  @InjectRepository(Additional)
+  private readonly additionalRepository: Repository<Additional>;
 
   async create(createAdditionalDto: CreateAdditionalDto) {
     const additional = this.additionalRepository.create(createAdditionalDto);
@@ -21,7 +19,6 @@ export class AdditionalsService {
     return await this.additionalRepository.find();
   }
 
-
   async findOne(id: number) {
     return await this.additionalRepository.findOneBy({ id });
   }
@@ -31,7 +28,10 @@ export class AdditionalsService {
 
     if (!additional) return null;
 
-    return await this.additionalRepository.save({ ...additional, ...updateAdditionalDto });
+    return await this.additionalRepository.save({
+      ...additional,
+      ...updateAdditionalDto,
+    });
   }
 
   async remove(id: number) {

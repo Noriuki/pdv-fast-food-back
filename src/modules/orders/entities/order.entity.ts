@@ -1,5 +1,5 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-import { Payment_Method } from '../../../enums/payment-method.enum';
+import { PAYMENT_METHOD } from '../../../enums/payment-method.enum';
 import { Status } from '../../../enums/status.enum';
 import { OrderItem } from './order-item.entity';
 
@@ -10,14 +10,14 @@ export class Order {
 
   @Column({
     type: 'enum',
-    enum: Payment_Method
+    enum: PAYMENT_METHOD,
   })
-  payment_method: Payment_Method;
+  payment_method: PAYMENT_METHOD;
 
   @Column({
     type: 'enum',
     enum: Status,
-    default: 'pending'
+    default: 'pending',
   })
   status: Status;
 
@@ -35,6 +35,9 @@ export class Order {
   @Column({ type: 'decimal', precision: 10, scale: 2, default: 0 })
   total_amount: number;
 
-  @OneToMany(() => OrderItem, orderItem => orderItem.order, { cascade: true, eager: true })
+  @OneToMany(() => OrderItem, orderItem => orderItem.order, {
+    cascade: true,
+    eager: true,
+  })
   items: OrderItem[];
 }

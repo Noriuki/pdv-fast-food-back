@@ -30,7 +30,11 @@ describe('CategoriesService', () => {
   describe('create', () => {
     it('should create a category', async () => {
       const categoryDto = { name: 'TestCategory' };
-      const createdCategory: Category = { id: 1, ...categoryDto, image_url: null };
+      const createdCategory: Category = {
+        id: 1,
+        ...categoryDto,
+        image_url: null,
+      };
 
       jest.spyOn(repo, 'create').mockReturnValue(createdCategory);
       jest.spyOn(repo, 'save').mockResolvedValue(createdCategory);
@@ -40,7 +44,6 @@ describe('CategoriesService', () => {
       expect(result).toEqual(createdCategory);
       expect(repo.create).toHaveBeenCalledWith(categoryDto);
       expect(repo.save).toHaveBeenCalledWith(createdCategory);
-
     });
   });
 
@@ -48,7 +51,7 @@ describe('CategoriesService', () => {
     it('should return an array of categories', async () => {
       const categories: Category[] = [
         { id: 1, name: 'Category1', image_url: null },
-        { id: 2, name: 'Category2', image_url: null }
+        { id: 2, name: 'Category2', image_url: null },
       ];
 
       jest.spyOn(repo, 'find').mockResolvedValue(categories);
@@ -75,7 +78,7 @@ describe('CategoriesService', () => {
     it('should return null if category is not found', async () => {
       const id = 99;
 
-      jest.spyOn(repo, 'findOneBy').mockResolvedValue(null)
+      jest.spyOn(repo, 'findOneBy').mockResolvedValue(null);
       const result = await service.findOne(id);
 
       expect(result).toBeNull();

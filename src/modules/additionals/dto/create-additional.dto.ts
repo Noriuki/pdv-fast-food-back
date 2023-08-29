@@ -1,4 +1,10 @@
-import { IsDecimal, IsNotEmpty, IsOptional, IsString, IsUrl } from 'class-validator';
+import {
+  IsDecimal,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+  IsUrl,
+} from 'class-validator';
 
 export class CreateAdditionalDto {
   @IsNotEmpty()

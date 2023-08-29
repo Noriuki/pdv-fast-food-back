@@ -1,11 +1,17 @@
-import { IsArray, IsEnum, IsNotEmpty, IsOptional, IsString } from 'class-validator';
-import { Payment_Method } from '../../../enums/payment-method.enum';
+import {
+  IsArray,
+  IsEnum,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+} from 'class-validator';
+import { PAYMENT_METHOD } from '../../../enums/payment-method.enum';
 import { OrderItemDto } from './create-order-item.dto';
 
 export class CreateOrderDto {
   @IsNotEmpty()
-  @IsEnum(Payment_Method)
-  payment_method: Payment_Method;
+  @IsEnum(PAYMENT_METHOD)
+  payment_method: PAYMENT_METHOD;
 
   @IsString()
   customer_name: string;
