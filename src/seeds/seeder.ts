@@ -1,4 +1,4 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable, Logger, OnApplicationBootstrap } from '@nestjs/common';
 import { AdditionalsService } from 'src/modules/additionals/additionals.service';
 import { CreateAdditionalDto } from 'src/modules/additionals/dto/create-additional.dto';
 import { CategoriesService } from 'src/modules/categories/categories.service';
@@ -6,14 +6,14 @@ import { CreateProductDto } from 'src/modules/products/dto/create-product.dto';
 import { ProductsService } from 'src/modules/products/products.service';
 
 @Injectable()
-export class SeedService {
+export class SeedService implements OnApplicationBootstrap {
   constructor(
     private readonly categoriesService: CategoriesService,
     private readonly additionalsService: AdditionalsService,
     private readonly productsService: ProductsService,
   ) {}
 
-  async seed() {
+  async   onApplicationBootstrap(): Promise<void> {
     const logger = new Logger('Seeding');
     logger.log('--- Seed Service: Check ---');
     await this.categoriesSeeder();
